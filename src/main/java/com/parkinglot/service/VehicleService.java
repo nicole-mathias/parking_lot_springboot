@@ -14,7 +14,6 @@ public class VehicleService {
 
     private final ParkingLotState state;
 
-    // constructor of ParkingLotState - this is good
     public VehicleService(ParkingLotState state) {
         this.state = state;
     }
