@@ -17,7 +17,7 @@ public class ParkingLot {
     private Map<String, ParkingTicket> activeTickets;
 
 
-    public ParkingLot() {
+    private ParkingLot() {
         floors = new ArrayList<>();
         hourlyRates = new HashMap<>();
 
@@ -28,7 +28,7 @@ public class ParkingLot {
         activeTickets = new ConcurrentHashMap<>();
     }
 
-    // thread safe singleton with double locking
+    // thread safe singleton with double checked locking
     public static ParkingLot getInstance() {
         if (instance == null) {
             synchronized (ParkingLot.class) {

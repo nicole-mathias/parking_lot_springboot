@@ -18,7 +18,7 @@ import com.parkinglot.domain.Vehicle;
 @Component
 public class ParkingLotState {
 
-    private final ParkingLot parkinglot = new ParkingLot();
+    private final ParkingLot parkinglot = ParkingLot.getInstance();
     private final Map<String, Vehicle> registered_vehicles = new ConcurrentHashMap<>();
     private List<ParkingFloor> floors;
     private Map<String, ParkingTicket> activetickets;
@@ -39,8 +39,6 @@ public class ParkingLotState {
     // the domain will handle the the parking
     public ParkingTicket parkVehicle(String licensePlate) {
         if (registered_vehicles.get(licensePlate) != null) {
-            return null;
-        } else {
             Vehicle vehicle = registered_vehicles.get(licensePlate);
             ParkingTicket ticket = getParkingLot().parkVehicle(vehicle);
 
@@ -48,6 +46,7 @@ public class ParkingLotState {
 
             return ticket;
         }
+        return null;
     }
 
     // returns fees
