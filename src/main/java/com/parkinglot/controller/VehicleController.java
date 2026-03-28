@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.parkinglot.dto.CreateVehicleRequest;
+import com.parkinglot.dto.VehicleRequest;
 import com.parkinglot.dto.VehicleResponse;
 import com.parkinglot.service.VehicleService;
 
@@ -24,7 +24,7 @@ public class VehicleController {
     }
 
     @PostMapping
-    public ResponseEntity<VehicleResponse> createVehicle(@Valid @RequestBody CreateVehicleRequest req){
+    public ResponseEntity<VehicleResponse> createVehicle(@Valid @RequestBody VehicleRequest req){
         VehicleResponse created = this.vehicleService.createVehicle(req);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
