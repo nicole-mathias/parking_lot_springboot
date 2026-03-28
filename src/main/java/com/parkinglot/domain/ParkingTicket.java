@@ -29,6 +29,10 @@ public class ParkingTicket {
         return spot;
     }
 
+    public LocalDateTime getEntryTime() {
+        return entryTime;
+    }
+
     public double calculatefee() {
         exitTime = LocalDateTime.now();
         long hours = Duration.between(entryTime, exitTime).toHours();

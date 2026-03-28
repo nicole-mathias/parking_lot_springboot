@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.parkinglot.dto.CreateFloor;
+import com.parkinglot.dto.FloorRequest;
 import com.parkinglot.dto.FloorResponse;
 import com.parkinglot.service.FloorService;
 
@@ -22,7 +22,7 @@ public class FloorController {
     }
 
     @PostMapping
-    public ResponseEntity<FloorResponse> addFloor(@RequestBody CreateFloor req){
+    public ResponseEntity<FloorResponse> addFloor(@RequestBody FloorRequest req){
         FloorResponse created = this.floorService.createFloor(req);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }   
