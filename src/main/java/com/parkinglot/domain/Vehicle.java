@@ -16,7 +16,6 @@ public abstract class Vehicle {
 
     public void assignTicket(ParkingTicket ticket) {
         this.ticket = ticket;
-
     }
 
     public String getLicensePlate() {

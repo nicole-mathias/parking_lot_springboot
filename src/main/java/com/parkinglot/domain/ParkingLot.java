@@ -42,6 +42,10 @@ public class ParkingLot {
     }
 
     public synchronized ParkingTicket parkVehicle(Vehicle vehicle) {
+        if (vehicle.getTicket() != null
+                && activeTickets.containsKey(vehicle.getTicket().getTicketId())) {
+            throw new IllegalStateException("Vehicle already has an active ticket in this lot");
+        }
 
         // search for a vehicle spot on every floor
         for (ParkingFloor floor : floors) {
@@ -64,25 +68,38 @@ public class ParkingLot {
         return null;
     }
 
-    public void addFloor(ParkingFloor floor) {
+    public ParkingTicket getTicketById(String ticketId) {
+        return activeTickets.get(ticketId);
+    }
+
+    public synchronized void addFloor(ParkingFloor floor) {
         floors.add(floor);
     }
 
-
-    public double unParkVehicle(ParkingTicket ticket) {
-        if (ticket == null)
+    public synchronized double unParkVehicle(ParkingTicket ticket) {
+        if (ticket == null) {
             throw new IllegalArgumentException("Invalid Ticket");
+        }
+        if (!activeTickets.containsKey(ticket.getTicketId())) {
+            throw new IllegalArgumentException("Unknown or already closed ticket");
+        }
 
-        double fee = ticket.calculatefee();
+        double fee = ticket.calculateFee();
         ParkingSpot spot = ticket.getSpot();
         spot.removeVehicle();
         activeTickets.remove(ticket.getTicketId());
+
+        Vehicle v = ticket.getVehicle();
+        if (v != null) {
+            v.assignTicket(null);
+        }
+
         System.out.println("Fee: $" + fee);
 
         return fee;
     }
 
-    public void displayAvailability() {
+    public synchronized void displayAvailability() {
         System.out.println("=== Parking Availability ===");
         for (int i=0; i < floors.size(); i++) {
             ParkingFloor floor = floors.get(i);

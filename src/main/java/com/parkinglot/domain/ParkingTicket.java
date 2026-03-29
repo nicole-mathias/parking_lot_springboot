@@ -25,6 +25,10 @@ public class ParkingTicket {
         return ticketId;
     }
 
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
     public ParkingSpot getSpot() {
         return spot;
     }
@@ -33,7 +37,7 @@ public class ParkingTicket {
         return entryTime;
     }
 
-    public double calculatefee() {
+    public double calculateFee() {
         exitTime = LocalDateTime.now();
         long hours = Duration.between(entryTime, exitTime).toHours();
         if (hours == 0) {

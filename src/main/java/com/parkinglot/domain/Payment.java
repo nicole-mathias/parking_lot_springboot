@@ -2,12 +2,32 @@
 package com.parkinglot.domain;
 
 public abstract class Payment {
-    private double fee;
-    private PaymentType type;
+    private final double fee;
+    private final PaymentType type;
 
-    public Payment(double fee, PaymentType type){
+    public Payment(double fee, PaymentType type) {
         this.fee = fee;
         this.type = type;
+    }
+
+    public static Payment create(PaymentType type, double fee) {
+        return switch (type) {
+            case CARD -> new CardPayment(fee);
+            case CASH -> new CashPayment(fee);
+        };
+    }
+
+    /** Runs domain-specific payment logic (card vs cash). */
+    public void pay() {
+        makePayment();
+    }
+
+    public double getFee() {
+        return fee;
+    }
+
+    public PaymentType getType() {
+        return type;
     }
 
     protected abstract void makePayment();
