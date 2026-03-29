@@ -28,7 +28,4 @@ public class VehicleController {
         VehicleResponse created = this.vehicleService.createVehicle(req);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
-
-    
-    
 }

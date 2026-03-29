@@ -11,6 +11,8 @@ import com.parkinglot.dto.FloorRequest;
 import com.parkinglot.dto.FloorResponse;
 import com.parkinglot.service.FloorService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/floor")
 public class FloorController {
@@ -22,8 +24,8 @@ public class FloorController {
     }
 
     @PostMapping
-    public ResponseEntity<FloorResponse> addFloor(@RequestBody FloorRequest req){
+    public ResponseEntity<FloorResponse> addFloor(@Valid @RequestBody FloorRequest req) {
         FloorResponse created = this.floorService.createFloor(req);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
-    }   
+    }
 }
